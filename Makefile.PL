@@ -5,7 +5,8 @@ name 'Finance-Bank-SCSB-TW';
 all_from 'lib/Finance/Bank/SCSB/TW.pm';
 
 requires
-    'WWW::Mechanize'   => '0',
+    'List::MoreUtils'  => 0,
+    'WWW::Mechanize'   => 0,
     'HTML::Selector::XPath' => 0,
     'HTML::TreeBuilder::XPath' => 0;
 
