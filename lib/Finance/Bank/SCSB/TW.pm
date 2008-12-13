@@ -1,61 +1,36 @@
+use strict;
 
 package Finance::Bank::SCSB::TW;
-use strict;
+
 use Carp;
 use 5.008;
-our $VERSION = '0.02';
+our $VERSION = '0.10_1';
 use WWW::Mechanize;
 use HTML::Selector::XPath qw(selector_to_xpath);
 use HTML::TreeBuilder::XPath;
+use utf8;
+use List::MoreUtils qw(mesh);
 
-our $ua = WWW::Mechanize->new(
-    env_proxy => 1,
-    keep_alive => 1,
-    timeout => 60,
-);
+{
+    my $ua;
+    sub ua {
+        return $ua if $ua;
+        $ua = WWW::Mechanize->new(
+            env_proxy => 1,
+            keep_alive => 1,
+            timeout => 60,
+        );
+    }
+}
 
 sub check_balance {
-	my ($u,$p,$a) = @_;
-
- 	croak "Must provide a username" unless $u;
-	croak "Must provide a password" unless $p;
-	croak "Must provide a account number" unless $a;
-
-	$ua->get('https://netbank.scsb.com.tw/scripts/down_menu1.asp');
-	$ua->get('https://netbank.scsb.com.tw/check_in_personal.htm');
-	$ua->field(Var1 => $u);
-	$ua->field(Var2 => $p);
-	$ua->submit;
-	$ua->get('https://netbank.scsb.com.tw/personal_bank.htm');
-	$ua->get('https://netbank.scsb.com.tw/scripts/scsb.exe?App=Tr1801_in');
-	$ua->field(Var1 => $a);
-	$ua->submit;
-
-	my $content = $ua->content;
-
-	# logout
-	$ua->get('https://netbank.scsb.com.tw/scripts/scsb.exe?App=Logoff&Pno=1');
-
-	# parse html
-	$content =~ m{
-<TD\ align=right><FONT\ color=#008000\ size=4><B>([^<>]+?)</B></FONT></TD>\s
-<TD\ align=right><FONT\ color=#0000FF\ size=4><B>([\d,.]+?)</B></FONT></TD>\s
-</TR>\s
-<TR><TD\ align=right><FONT\ color=#008000\ size=4><B>([^<>]+?)</B></FONT></TD>\s
-<TD\ align=right><FONT\ color=#0000FF\ size=4><B>([\d,.]+?)</B></FONT></TD>\s
-}s;
-
-	return {
-		account => $a,
-		credit => $2,
-		balance => $4,	
-	};
+    die "Not implemented";
 }
 
 sub currency_exchange_rate {
     my $url = 'https://ibank.scsb.com.tw/netbank.portal?_nfpb=true&_pageLabel=page_other12&_nfls=false';
-    $ua->get($url);
-    my $content = $ua->content;
+    ua->get($url);
+    my $content = ua->content;
 
     my $tree = HTML::TreeBuilder::XPath->new;
     $tree->parse($content);
@@ -70,20 +45,23 @@ sub currency_exchange_rate {
     );
 
     my $table = [];
+    my @field_names = qw(zh_currency_name en_currency_name buy_at sell_at);
     for my $row (0..scalar(@{$xp[0]})-1) {
         my @row = ();
         for my $node_text (@xp) {
-            push @row, $node_text->[$row];
+            my $str = $node_text->[$row];
+            utf8::decode($str);
+            push @row, $str;
         }
-        push @$table, {
-            currency => "$row[0] ($row[1])",
-            buy_at => $row[2],
-            sell_at => $row[3]
-        };
+        $row[0] =~ s/\p{IsSpace}+//g;
+
+        push @$table, { mesh @field_names, @row };
     }
 
     return $table;
 }
+
+1;
 
 __END__
 
@@ -95,11 +73,9 @@ Finance::Bank::SCSB::TW - Check Taiawn SCSB bank info
 
     use Finance::Bank::SCSB::TW;
 
-    my $scsb = Finance::Bank::SCSB::TW::check_balance($username,$password,$account);
+    my $rate = Finance::Bank::SCSB::TW::currency_exchange_rate
 
-    foreach (keys %$scsb) {
-        print "$_ : " . $scsb->{$_}. "\n";
-    }
+    print YAML::Dump($rate);
 
 =head1 DESCRIPTION
 
@@ -109,11 +85,22 @@ banking system at L<http://www.scsb.com.tw/>.
 You will need either B<Crypt::SSLeay> or B<IO::Socket::SSL> installed
 for HTTPS support to work with LWP.
 
-=head1 CLASS METHODS
+=head1 FUNCTIONS
 
-    check_balance(username => $u, password => $p, account=>$a )
+=over 4
+
+=item currency_exchange_rate
+
+Retrieve the table of foriegn currency exchange rate. All rates are
+exchanged with NTD.
+
+=item check_balance(username => $u, password => $p, account=>$a )
+
+This function isn't re-implemented yet. Please do not use this.
 
 Return your balance information for account number $a.
+
+=back
 
 =head1 WARNING
 
