@@ -10,6 +10,8 @@ WriteMakefile(
     # EXE_FILES		=> [ 'scsb-check-balance' ],
     PREREQ_PM           => {
         'WWW::Mechanize'   => '0',
+        'HTML::Selector::XPath' => 0,
+        'HTML::TreeBuilder::XPath' => 0,
     },
     dist                => {
         COMPRESS        => 'gzip -9',

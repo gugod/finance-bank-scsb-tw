@@ -4,6 +4,9 @@ use strict;
 use Carp;
 our $VERSION = '0.02';
 use WWW::Mechanize;
+use HTML::Selector::XPath qw(selector_to_xpath);
+use HTML::TreeBuilder::XPath;
+
 our $ua = WWW::Mechanize->new(
     env_proxy => 1,
     keep_alive => 1,
@@ -46,6 +49,39 @@ sub check_balance {
 		credit => $2,
 		balance => $4,	
 	};
+}
+
+sub currency_exchange_rate {
+    my $url = 'https://ibank.scsb.com.tw/netbank.portal?_nfpb=true&_pageLabel=page_other12&_nfls=false';
+    $ua->get($url);
+    my $content = $ua->content;
+
+    my $tree = HTML::TreeBuilder::XPath->new;
+    $tree->parse($content);
+
+    my @xp = map {
+        [ map { $_->as_trimmed_text } $tree->findnodes($_) ]
+    } (
+        selector_to_xpath("td.txt09 > span"),
+        selector_to_xpath("td.txt09 + td > span"),
+        selector_to_xpath("td.txt09 + td + td.txt101 > span"),
+        selector_to_xpath("td.txt09 + td + td.txt101 + td.txt101 > span")
+    );
+
+    my $table = [];
+    for my $row (0..scalar(@{$xp[0]})-1) {
+        my @row = ();
+        for my $node_text (@xp) {
+            push @row, $node_text->[$row];
+        }
+        push @$table, {
+            currency => "$row[0] ($row[1])",
+            buy_at => $row[2],
+            sell_at => $row[3]
+        };
+    }
+
+    return $table;
 }
 
 __END__
@@ -95,7 +131,7 @@ and B<Finance::Bank::Fubon::TW> by Autrijus Tang C<autrijus@autrijus.org>
 
 =head1 COPYRIGHT
 
-Copyright 2003 by Kang-min Liu E<lt>gugod@gugod.orgE<gt>.
+Copyright 2003,2004,2005,2006,2007,2008 by Kang-min Liu E<lt>gugod@gugod.orgE<gt>.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
