@@ -10,8 +10,6 @@ use HTML::Selector::XPath qw(selector_to_xpath);
 use HTML::TreeBuilder::XPath;
 use utf8;
 use List::MoreUtils qw(mesh);
-# use IO::All;
-use Encode qw(decode_utf8);
 
 {
     my $ua;
@@ -42,7 +40,6 @@ sub _login {
             loginUID => $username
         }
     );
-    # io("/tmp/login1.html")->assert->print(ua->content);
 
     ua->submit_form(
         form_name => 'loginForm',
@@ -51,9 +48,8 @@ sub _login {
             'wlw-radio_button_group_key:{actionForm.loginAP}' => $menu
         }
     );
-    # io("/tmp/login2.html")->assert->print(ua->content);
 
-    return decode_utf8(ua->content);
+    return ua->content;
 }
 
 sub logout {
@@ -115,7 +111,6 @@ sub currency_exchange_rate {
         my @row = ();
         for my $node_text (@xp) {
             my $str = $node_text->[$row];
-            utf8::decode($str);
             push @row, $str;
         }
         $row[0] =~ s/\p{IsSpace}+//g;

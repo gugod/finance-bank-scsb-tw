@@ -6,7 +6,7 @@ all_from 'lib/Finance/Bank/SCSB/TW.pm';
 
 requires
     'List::MoreUtils'  => 0,
-    'WWW::Mechanize'   => 0,
+    'WWW::Mechanize'   => '1.50',
     'HTML::Selector::XPath' => 0,
     'HTML::TreeBuilder::XPath' => 0;
 
