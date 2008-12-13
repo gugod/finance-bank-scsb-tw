@@ -92,13 +92,19 @@ for HTTPS support to work with LWP.
 =item currency_exchange_rate
 
 Retrieve the table of foriegn currency exchange rate. All rates are
-exchanged with NTD.
+exchanged with NTD. It returns an arrayref of hash with each one looks
+like this:
+
+    {
+        zh_currency_name => "美金現金",
+        en_currency_name => "USD CASH",
+        buy_at           => 33.06,
+        sell_at          => 33.56
+    }
 
 =item check_balance(username => $u, password => $p, account=>$a )
 
-This function isn't re-implemented yet. Please do not use this.
-
-Return your balance information for account number $a.
+This function isn't re-implemented yet. Please do not use this function.
 
 =back
 
