@@ -4,7 +4,7 @@ package Finance::Bank::SCSB::TW;
 
 use Carp;
 use 5.008;
-our $VERSION = '0.10';
+our $VERSION = '0.11';
 use WWW::Mechanize::Sleepy;
 use HTML::Selector::XPath qw(selector_to_xpath);
 use HTML::TreeBuilder::XPath;
@@ -162,9 +162,10 @@ like this:
         sell_at          => 33.56
     }
 
-=item check_balance(username => $u, password => $p, account=>$a )
+=item check_balance($id, $username, $password)
 
-This function isn't re-implemented yet. Please do not use this function.
+Retrieve your NTD balance. id is the 10-digit Taiwan ID. username and
+password is whatever you defined at the bank.
 
 =back
 
