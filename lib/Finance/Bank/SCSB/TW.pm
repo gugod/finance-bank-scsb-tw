@@ -2,6 +2,7 @@
 package Finance::Bank::SCSB::TW;
 use strict;
 use Carp;
+use 5.008;
 our $VERSION = '0.02';
 use WWW::Mechanize;
 use HTML::Selector::XPath qw(selector_to_xpath);
@@ -88,7 +89,7 @@ __END__
 
 =head1 NAME
 
-Finance::Bank::SCSB::TW - Check SCSB accounts from Perl
+Finance::Bank::SCSB::TW - Check Taiawn SCSB bank info
 
 =head1 SYNOPSIS
 
