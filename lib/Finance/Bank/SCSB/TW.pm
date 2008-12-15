@@ -138,7 +138,7 @@ Finance::Bank::SCSB::TW - Check Taiawn SCSB bank info
 
 =head1 DESCRIPTION
 
-This module provides a rudimentary interface to the Fubon eBank
+This module provides a rudimentary interface to the online SCSB
 banking system at L<http://www.scsb.com.tw/>.
 
 You will need either B<Crypt::SSLeay> or B<IO::Socket::SSL> installed
