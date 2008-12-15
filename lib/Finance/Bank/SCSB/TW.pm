@@ -5,7 +5,7 @@ package Finance::Bank::SCSB::TW;
 use Carp;
 use 5.008;
 our $VERSION = '0.11';
-use WWW::Mechanize::Sleepy;
+use WWW::Mechanize;
 use HTML::Selector::XPath qw(selector_to_xpath);
 use HTML::TreeBuilder::XPath;
 use utf8;
@@ -15,8 +15,7 @@ use List::MoreUtils qw(mesh);
     my $ua;
     sub ua {
         return $ua if $ua;
-        $ua = WWW::Mechanize::Sleepy->new(
-            sleep => '1..5',
+        $ua = WWW::Mechanize->new(
             env_proxy => 1,
             keep_alive => 1,
             timeout => 60,
