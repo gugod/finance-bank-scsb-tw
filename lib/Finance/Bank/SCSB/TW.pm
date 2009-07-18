@@ -10,6 +10,7 @@ use HTML::Selector::XPath qw(selector_to_xpath);
 use HTML::TreeBuilder::XPath;
 use utf8;
 use List::MoreUtils qw(mesh);
+use Finance::Bank::SCSB::TW::CurrencyExchangeRateCollection;
 
 {
     my $ua;
@@ -117,7 +118,7 @@ sub currency_exchange_rate {
         push @$table, { mesh @field_names, @row };
     }
 
-    return $table;
+    return bless $table, "Finance::Bank::SCSB::TW::CurrencyExchangeRateCollection";
 }
 
 1;
@@ -193,4 +194,3 @@ under the same terms as Perl itself.
 See L<http://www.perl.com/perl/misc/Artistic.html>
 
 =cut
-
