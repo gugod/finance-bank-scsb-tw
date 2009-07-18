@@ -162,6 +162,10 @@ like this:
         sell_at          => 33.56
     }
 
+The returned reference is also an object of
+L<Finance::Bank::SCSB::TW::CurrencyExchangeRateCollection>, see the
+documents there for the reference of instance methods.
+
 =item check_balance($id, $username, $password)
 
 Retrieve your NTD balance. id is the 10-digit Taiwan ID. username and
@@ -177,16 +181,13 @@ the source of this module yourself to reassure yourself that I am not
 doing anything untoward with your banking data. This software is useful
 to me, but is provided under B<NO GUARANTEE>, explicit or implied.
 
-=head1 AUTHORS
+=head1 AUTHOR
 
 Kang-min Liu E<lt>gugod@gugod.orgE<gt>
 
-Based on B<Finance::Bank::LloydTSB> by Simon Cozens C<simon@cpan.org>,
-and B<Finance::Bank::Fubon::TW> by Autrijus Tang C<autrijus@autrijus.org>
-
 =head1 COPYRIGHT
 
-Copyright 2003,2004,2005,2006,2007,2008 by Kang-min Liu E<lt>gugod@gugod.orgE<gt>.
+Copyright 2003,2004,2005,2006,2007,2008,2009 by Kang-min Liu E<lt>gugod@gugod.orgE<gt>.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
