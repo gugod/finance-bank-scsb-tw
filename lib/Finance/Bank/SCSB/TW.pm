@@ -21,7 +21,7 @@ use Finance::Bank::SCSB::TW::CurrencyExchangeRateCollection;
             keep_alive => 1,
             timeout => 60,
         );
-        $ua->agent_alias("Windows IE 6");
+        $ua->agent_alias("Mac Mozilla");
         return $ua;
     }
 }
