@@ -1,3 +1,4 @@
+requires 'Module::Build::Tiny';
 requires 'List::MoreUtils';
 requires 'WWW::Mechanize';
 requires 'WWW::Mechanize::Sleepy';
