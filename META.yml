@@ -15,7 +15,7 @@ name: Finance-Bank-SCSB-TW
 provides:
   Finance::Bank::SCSB::TW:
     file: lib/Finance/Bank/SCSB/TW.pm
-    version: '0.13'
+    version: '0.14'
   Finance::Bank::SCSB::TW::CurrencyExchangeRateCollection:
     file: lib/Finance/Bank/SCSB/TW/CurrencyExchangeRateCollection.pm
 requires:
@@ -28,7 +28,7 @@ requires:
   WWW::Mechanize::Sleepy: '0'
 resources:
   repository: https://github.com/gugod/Finance-Bank-SCSB-TW.git
-version: '0.13'
+version: '0.14'
 x_serialization_backend: 'CPAN::Meta::YAML version 0.018'
 x_spdx_expression: 'Artistic-1.0-Perl OR GPL-1.0-or-later'
 x_static_install: '1'

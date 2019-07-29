@@ -1,6 +1,6 @@
 package Finance::Bank::SCSB::TW;
 use 5.008;
-our $VERSION = '0.13';
+our $VERSION = '0.14';
 
 use strict;
 use utf8;
