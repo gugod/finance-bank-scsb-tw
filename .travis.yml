@@ -8,15 +8,15 @@ perl:
 before_install:
   - perlbrew lib create @build
   - perlbrew use @build
-  - cpanm --notest Test2::Harness
+  - cpanm -n -q Test2::Harness
 
 script:
   - yath --qvf
-  - cpanm --notest App::ModuleBuildTiny
+  - cpanm -n -q App::ModuleBuildTiny
   - mbtiny dist
   - perlbrew lib create @installation
   - perlbrew use @installation
-  - cpanm *.tar.gz
+  - cpanm -n -q *.tar.gz
 
 notifications:
   irc:
