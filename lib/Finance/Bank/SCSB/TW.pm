@@ -1,14 +1,13 @@
-use strict;
-
 package Finance::Bank::SCSB::TW;
-
-use Carp;
 use 5.008;
-our $VERSION = '0.12';
+our $VERSION = '0.13';
+
+use strict;
+use utf8;
+use Carp;
 use WWW::Mechanize;
 use HTML::Selector::XPath qw(selector_to_xpath);
 use HTML::TreeBuilder::XPath;
-use utf8;
 use List::MoreUtils qw(mesh);
 use Finance::Bank::SCSB::TW::CurrencyExchangeRateCollection;
 
