@@ -29,6 +29,8 @@
             "HTML::Selector::XPath" : "0",
             "HTML::TreeBuilder::XPath" : "0",
             "List::MoreUtils" : "0",
+            "Module::Build::Tiny" : "0",
+            "UNIVERSAL::isa" : "0",
             "WWW::Mechanize" : "0",
             "WWW::Mechanize::Sleepy" : "0"
          }
@@ -37,7 +39,7 @@
    "provides" : {
       "Finance::Bank::SCSB::TW" : {
          "file" : "lib/Finance/Bank/SCSB/TW.pm",
-         "version" : "0.12"
+         "version" : "0.13"
       },
       "Finance::Bank::SCSB::TW::CurrencyExchangeRateCollection" : {
          "file" : "lib/Finance/Bank/SCSB/TW/CurrencyExchangeRateCollection.pm"
@@ -51,7 +53,7 @@
          "web" : "https://github.com/gugod/Finance-Bank-SCSB-TW"
       }
    },
-   "version" : "0.12",
+   "version" : "0.13",
    "x_serialization_backend" : "JSON::PP version 2.97001",
    "x_spdx_expression" : "Artistic-1.0-Perl OR GPL-1.0-or-later",
    "x_static_install" : "1"

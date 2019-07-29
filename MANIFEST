@@ -1,5 +1,6 @@
 .drone.yml
 .shipit
+.travis.yml
 Build.PL
 Changes
 LICENSE
