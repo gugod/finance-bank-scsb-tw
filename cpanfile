@@ -5,3 +5,8 @@ requires 'WWW::Mechanize::Sleepy';
 requires 'HTML::Selector::XPath';
 requires 'HTML::TreeBuilder::XPath';
 requires 'UNIVERSAL::isa';
+
+on test => sub {
+    requires 'Test::Pod';
+    requires 'Test::More';
+};
