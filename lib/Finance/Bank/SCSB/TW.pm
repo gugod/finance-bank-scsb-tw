@@ -124,6 +124,8 @@ sub currency_exchange_rate {
 
 __END__
 
+=encoding utf8
+
 =head1 NAME
 
 Finance::Bank::SCSB::TW - Check Taiawn SCSB bank info
